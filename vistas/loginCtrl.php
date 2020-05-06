@@ -13,19 +13,22 @@ echo "<br>pwd:".$password;
 echo "<br>grupo:".$grupo;
 */
 $arr_rutusu = explode("-", $rutusu);
-$rutusu = $arr_rutusu[0];
+
+$rutusu = str_replace(".","",$arr_rutusu[0]);
 
 $existe = existeUsuario($rutusu, $password, $grupo );
 //echo "<br>conteo:". $existe;
 
 if( $existe > 0  ) {
     $infoUser = getInfoUser($rutusu, $password, $grupo);
+    $_SESSION['rutusu'] = $rutusu;
+    $_SESSION['id_grupop'] = $grupo;
     if( !empty( $infoUser )) {
         foreach ($infoUser as $row) {
             $id = $row['id'];
             $nombre = $row['nombre'];
             $grupo = $row['grupo']; 
-            //echo "<br>nom:".$nombre;
+           //echo "<br>nom:".$nombre;
         }
     }
     //echo "<br>Existe";

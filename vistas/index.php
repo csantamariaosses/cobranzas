@@ -81,7 +81,7 @@ function fnCbGrupo() {
                       <br>
                       <div class="form-group">
                         <label for="usuario" class="etiqueta">Usuario</label>
-                        <input type="text" class="form-control" name="rutusu" id="rutusu" aria-describedby="Usuario" maxlength="9" size="10" width="10" onBlur="validOnBlurRut();">
+                        <input type="text" class="form-control" name="rutusu" id="rutusu" aria-describedby="Usuario" maxlength="11" size="10" width="10" onBlur="validOnBlurRut();">
                       </div>
                       <div class="form-group">
                         <label for="usuario" class="etiqueta">Password</label>
@@ -130,19 +130,23 @@ function fnCbGrupo() {
 
 function formatoRut( rut ) {
     var x = rut
-    var x = x.replace('-','');
+    x = x.replace('-','');
+    x = x.replace('.','');
     //alert( x );
     
     var largo = x.length;
     var rutReform = "";
     if( largo >1 ){    
         var rut_    = "";
+        var rut__   = "";
         var digito_ = "";
         
         //alert( x );
         rut_ = x.substr(0,largo-1);
+        rut__ = new Intl.NumberFormat().format( rut_);
+        //alert( rut__);
         digito_ = x.substr(-1);
-        rutReform = rut_ + "-" + digito_;
+        rutReform = rut__ + "-" + digito_;
     } else {
         rutReform = x;
     }
@@ -175,7 +179,7 @@ function validOnBlurRut(){
 
 function checkRut(rut) {
     // Despejar Puntos
-    var valor = rut.replace('.','');
+    var valor = rut.replace(/\./g,'');
     // Despejar Guión
     valor = valor.replace('-','');
     
@@ -280,7 +284,7 @@ function validar() {
     if( rut.lenght > 0 ) {
         //alert( "check rut:"+ rut);    
         if( !checkRut(rut) ) {
-            alert("Rut ingreasdo es invalido ...!");
+            alert(">Rut ingreasdo es invalido ...!");
              //document.getElementById("rutusu").value= "";
             document.getElementById("rutusu").style.borderColor="#ff0000";
             //document.getElementById("rutusu").focus();

@@ -494,6 +494,38 @@ function getTotalPagos( $id_deudor ) {
 }
 
 
+
+function getMaxIdTelefonos() {
+   $maxId = 0;
+   $database = new Connection();
+   $db = $database->openConnection();
+   $sql = " select maxm( id_telefono ) as maxId  from t_telefonos ";
+
+   $result = $db->query($sql);
+   if( $result ) {
+       foreach ($result as $row) {
+            $maxId  = $row['maxId'];
+      }
+   }
+   return $maxId;
+   
+}
+
+
+function getTipoTelefono(){
+   $database = new Connection();
+   $db = $database->openConnection();
+   $sql  = " select ID_TELEFONO, NOMBRE_TELEFONO ";
+   $sql .= " from tp_telefono ";
+   
+   $result = $db->query($sql);
+   if( $result ) {
+       return $result;
+   }
+}
+
+
+
 function getTipoGestion(){
    $database = new Connection();
    $db = $database->openConnection();
@@ -613,4 +645,34 @@ function  getEmailContacto( $id_rut_deudor ){
        return $result;
     }
     
+}
+
+
+
+
+function listAreasTelefonicas() {
+    $database = new Connection();
+    $db = $database->openConnection();
+    $sql  =  " select codigo as area from t_areas_telefonicas ";
+    //echo $sql;
+    
+    $result = $db->query($sql);
+   
+    if( $result ) {
+       return $result;
+    }
+}
+
+
+function getComunas() {
+     $database = new Connection();
+    $db = $database->openConnection();
+    $sql  =  " select nombre from t_comunas order by nombre  ";
+    //echo $sql;
+    
+    $result = $db->query($sql);
+   
+    if( $result ) {
+       return $result;
+    }
 }
